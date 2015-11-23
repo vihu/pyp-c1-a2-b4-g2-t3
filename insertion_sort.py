@@ -1,7 +1,7 @@
 import unittest
 
 
-class Bubbler(object):
+class Insertion(object):
     def __init__(self, sample):
         ''' sample is the list to sort
         '''
@@ -9,42 +9,42 @@ class Bubbler(object):
 
     @property
     def sorter(self):
-        ''' implement bubble sort here
+        ''' implement insertion sort here
         '''
         inp = self.sample
-        sorted = False
-        while not sorted:
-            sorted = True
-            for i in xrange(len(inp)-1):
-                if inp[i] > inp[i+1]:
-                    sorted = False
-                    inp[i+1], inp[i] = inp[i], inp[i+1]
+        for i in range(1, len(inp)):
+            x = inp[i]
+            j = i
+            while j > 0 and inp[j-1] > x:
+                inp[j] = inp[j-1]
+                j -= 1
+            inp[j] = x
         return inp
 
     def __repr__(self):
-        return 'Bubbler({})'.format(self.sample)
+        return 'Insertion({})'.format(self.sample)
 
 
-class BubblerTestCases(unittest.TestCase):
+class InsertionTestCases(unittest.TestCase):
 
     def test_simple(self):
         x1 = [1, 2, 3, 4, 5]
-        b = Bubbler(x1)
+        b = Insertion(x1)
         self.assertEquals(b.sorter, sorted(b.sample))
 
     def test_negatives(self):
         x2 = [4, 5, 23, 5, 6, 1, 6, -1, 0.3]
-        b = Bubbler(x2)
+        b = Insertion(x2)
         self.assertEquals(b.sorter, sorted(b.sample))
 
     def test_all_negatives(self):
         x3 = [-1, -4, -3, -2, -5]
-        b = Bubbler(x3)
+        b = Insertion(x3)
         self.assertEquals(b.sorter, sorted(b.sample))
 
     def test_decimals(self):
         x4 = [0.3, 0.2, 0.1, 0.4, -0.5, -0.3]
-        b = Bubbler(x4)
+        b = Insertion(x4)
         self.assertEquals(b.sorter, sorted(b.sample))
 
 
